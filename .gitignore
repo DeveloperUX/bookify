@@ -1,0 +1,5 @@
+bower_components
+server/bower_components
+node_modules
+server/node_modules
+server/config/settings.js
