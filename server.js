@@ -21,13 +21,13 @@ var db = mongoose.connect('mongodb://localhost:27017/snippets');
 
 //attach lister to connected event
 mongoose.connection.once('connected', function() {
-	console.log("Connected to database")
+  console.log("Connected to database")
 });
 
 // listen (start app with node server.js) ======================================
 app.get('/', function (req, res) {
-  res.send('Hello World!')
-})
+  res.send('Hello World!');
+});
 
 app.listen(3000);
 console.log("App listening on port 8080");
