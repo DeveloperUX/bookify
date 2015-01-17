@@ -1,20 +1,9 @@
 {
-  "name": "bookify",
-  "version": "0.0.1",
-  "authors": [
-    "BiiGoh"
-  ],
-  "description": "Adlib for books",
-  "main": "index.js",
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "angular": "~1.3.9"
-  }
+	"name": "angular",
+	"version": "1.0.0",
+	"dependencies": {
+		"bootstrap": "latest",
+		"angular": "latest",
+		"angular-route": "latest"	
+	}
 }

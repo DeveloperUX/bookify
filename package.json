@@ -1,26 +1,11 @@
 {
-  "name": "Bookify",
-  "version": "0.0.1",
-  "description": "Adlib for stories",
+  "name": "starter-node-angular",
   "main": "server.js",
   "dependencies": {
-    "bower": "^1.3.12",
-    "connect": "^3.3.4",
-    "express": "^4.11.0",
-    "mongoose": "3.8"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/DeveloperUX/bookify.git"
-  },
-  "author": "BiiGoh",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/DeveloperUX/bookify/issues"
-  },
-  "homepage": "https://github.com/DeveloperUX/bookify"
+    "express" : "~4.5.1",
+	"mongoose" : "~3.8.0",
+	"body-parser" : "~1.4.2",
+	"method-override" : "~2.0.2"
+  }
 }
+
