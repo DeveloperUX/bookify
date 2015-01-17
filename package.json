@@ -7,7 +7,7 @@
     "bower": "^1.3.12",
     "connect": "^3.3.4",
     "express": "^4.11.0",
-    "mongoose": "^3.8.21"
+    "mongoose": "3.8"
   },
   "devDependencies": {},
   "scripts": {
