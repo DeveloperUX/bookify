@@ -1,4 +1,8 @@
-module.exports = function(app) {
+var mongoose = require('mongoose');
+var Video = require('../models/Nerd');
+var path = require('path');
+
+module.exports.controller = function(app) {
 
 	// server routes ===========================================================
 	// handle things like api calls
@@ -7,7 +11,8 @@ module.exports = function(app) {
 	// frontend routes =========================================================
 	// route to handle all angular requests
 	app.get('*', function(req, res) {
-		res.sendfile('./public/index.html');
+        path.resolve('../../public/views/home.html');
+		res.render('MainCtrl');
 	});
 
 };
