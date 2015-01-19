@@ -4,7 +4,6 @@ var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
-var fs = require('fs');
 
 
 // configuration ===========================================
@@ -28,56 +27,10 @@ app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-M
 app.use(express.static(__dirname + 'public')); // set the static files location /public/img will be /img for users
 
 var db = mongoose.connect(dbConfig.url);
-// routes ==================================================
- var board = require('./app/controllers/board');
- board.router(app); // pass our application into our routes
 
-// dynamically include routes (Controller)
-//fs.readdirSync('./controllers').forEach(function (file) {
-//  if(file.substr(-3) == '.js') {
-//      route = require('./controllers/' + file);
-//      route.controller(app);
-//  }
-//});
-
-
-
-
-
-// TODO move this code out of here
-
-
-//var mike = new Scribe({
-//  name: "Skinny Mikey",
-//  balance: 7
-//});
-//var sadCat = new Story({
-//  title: "Sad Cat"
-//});
-//var scrib1 = new Scribble({
-//  text: "A cat fell into a rat hole",
-//  scribe: mike._id,
-//  story: sadCat._id
-//});
-//var scrib2 = new Scribble({
-//  text: "Then started to cry",
-//  scribe: mike._id,
-//  story: sadCat._id
-//});
-//var scrib3 = new Scribble({
-//  text: "because it stepped on a mouse",
-//  scribe: mike._id,
-//  story: sadCat._id
-//});
-//
-//mike.scribbles = [scrib1, scrib2, scrib3];
-//sadCat.scribbles = [scrib1, scrib2, scrib3];
-
-//mike.save();
-//sadCat.save();
-//scrib1.save();
-//scrib2.save();
-//scrib3.save();
+// dynamically load all routes under the routes folder
+// the route files will be called in the index.js file under /routes
+app.use( require('./app/routes') );
 
 
 // start app ===============================================
