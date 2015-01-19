@@ -10,7 +10,7 @@ var fs = require('fs');
 // configuration ===========================================
 
 // config files
-var db = require('./app/config/db');
+var dbConfig = require('./app/config/db');
 
 var port = process.env.PORT || 3000; // set our port
 // mongoose.connect(db.url); // connect to our mongoDB database (commented out after you enter in your own credentials)
@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(express.static(__dirname + 'public')); // set the static files location /public/img will be /img for users
 
-mongoose.connect(db.url);
+var db = mongoose.connect(dbConfig.url);
 // routes ==================================================
 // var board = require('./controllers/board');
 // board.controller(app); // pass our application into our routes
@@ -47,56 +47,59 @@ mongoose.connect(db.url);
 // TODO move this code out of here
 
 // DATABASE SCHEMA -- Set up our database schema
-var ScribeSchema = mongoose.Schema({
-  name: String,
-  balance: Number,
-  scribbles: [ScribbleSchema]
+var ScribeSchema = db.Schema({
+  name      : String,
+  balance   : Number,
+  scribbles : [{type: mongoose.Schema.ObjectId, ref: 'ScribbleSchema'}]
 });
 
-var ScribbleSchema = mongoose.Schema({
-  text: String,
-  scribe: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'ScribeSchema'
-  }
+var ScribbleSchema = db.Schema({
+  text      : String,
+  story     : {type: mongoose.Schema.ObjectId, ref: 'StorySchema'},
+  scribe    : {type: mongoose.Schema.ObjectId, ref: 'ScribeSchema'}
 });
 
-var StorySchema = mongoose.Schema({
-  scribbles: [ScribbleSchema],
-  title: String,
-  genre: String
+var StorySchema = db.Schema({
+  scribbles : [{type: mongoose.Schema.ObjectId, ref: 'ScribbleSchema'}],
+  title     : String,
+  genre     : String
 });
 
-var Scribe = mongoose.model('Scribe', ScribeSchema);
-var Story = mongoose.model('Story', StorySchema);
-var Scribble = mongoose.model('Scribble', ScribbleSchema);
+var Scribe = db.model('Scribe', ScribeSchema);
+var Story = db.model('Story', StorySchema);
+var Scribble = db.model('Scribble', ScribbleSchema);
 
 var mike = new Scribe({
-  name: "Fat Mikey",
+  name: "Skinny Mikey",
   balance: 7
+});
+var sadCat = new Story({
+  title: "Sad Cat"
 });
 var scrib1 = new Scribble({
   text: "A cat fell into a rat hole",
-  scribe: mike.id
+  scribe: mike._id,
+  story: sadCat._id
 });
 var scrib2 = new Scribble({
   text: "Then started to cry",
-  scribe: mike.id
+  scribe: mike._id,
+  story: sadCat._id
 });
 var scrib3 = new Scribble({
   text: "because it stepped on a mouse",
-  scribe: mike.id
+  scribe: mike._id,
+  story: sadCat._id
 });
-var sadCat = new Story({
-  scribbles: [scrib1, scrib2, scrib3],
-  genre: "sad"
-});
+
 mike.scribbles = [scrib1, scrib2, scrib3];
 sadCat.scribbles = [scrib1, scrib2, scrib3];
-Scribble.create({
-  text: "A cat fell into a rat hole",
-  scribe: mike.id
-});
+
+//mike.save();
+//sadCat.save();
+//scrib1.save();
+//scrib2.save();
+//scrib3.save();
 
 // ROUTES -- API ==========================================================
 
@@ -173,10 +176,9 @@ app.get('/api/stories', function (req, res) {
 
 // create story and send back all stories after creation
 app.post('/api/stories', function (req, res) {
-
+    
   // create a story, information comes from AJAX request from Angular
   Story.create({
-    genre : req.body.genre,
     title : req.body.title,
     scribbles : []
   }, function (err, story) {
@@ -184,13 +186,49 @@ app.post('/api/stories', function (req, res) {
       res.send(err);
 
     // get and return all the stories after you create another
-    Story.find(function (err, stories) {
-      if (err)
-        res.send(err)
-      res.json(stories);
+    Story.findOne( {_id: story._id}, function(err, newStory) {
+      if( err )
+        res.send(err);
+      res.json(newStory);
+      
+      // create the first scribble if it was written
+      if( req.body.scribble ) {
+        var scrib = new Scribble({text: scribble});
+      }
+
     });
   });
 
+  
+});
+
+
+// create story and send back all stories after creation
+app.post('/api/scribbles', function(req, res) {
+    
+  // create a new scribble and tie it to a story and author
+  Scribble.create({
+    text : req.body.text,
+    scribe : req.body.scribe_id,
+    story : req.body.story_id
+  }, function (err, scribble) {
+    if(err)
+      res.send(err);
+    res.send(scribble);
+
+    // Find the associated Story to which this scribble is being added and modify it
+    Story.findOne( {_id: scribble.story}, function(err, linkedStory) {
+      linkedStory.scribbles.push( scribble );
+      linkedStory.save();
+    });
+    // Add this also to the author of the scribble
+    Scribe.findOne( {_id: scribble.scribe}, function(err, linkedScribe) {
+      linkedScribe.scribbles.push( scribble );
+      linkedScribe.save();
+    });
+  });
+
+  
 });
 
 // delete a story
@@ -209,9 +247,6 @@ app.delete('/api/stories/:story_id', function (req, res) {
     });
   });
 });
-
-
-
 
 
 
