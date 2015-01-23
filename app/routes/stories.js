@@ -29,6 +29,7 @@ router.post('/stories', function (req, res) {
   }, function(err, story) {
     if(err)
       res.send(err);
+    console.log("Added a new story to the database");
     // get and return this story after it's created
     Story.findOne( {_id: story._id}, function(err, newStory) {
       if( err )
@@ -49,7 +50,7 @@ router.delete('/stories/:story_id', function (req, res) {
   }, function (err, story) {
     if (err)
       res.send(err);
-
+    console.log("Deleted a story from the database");
     // get and return all the stories after you create another
     Story.find(function (err, stories) {
       if (err)

@@ -32,6 +32,11 @@ var db = mongoose.connect(dbConfig.url);
 // the route files will be called in the index.js file under /routes
 app.use( require('./app/routes') );
 
+// TODO move
+app.get('*', function(req, res) {
+    res.sendfile('./public/index.html'); 
+  // load the single view file (angular will handle the page changes on the front-end)
+});
 
 // start app ===============================================
 app.listen(port);

@@ -21,13 +21,14 @@ var router = express.Router();
 // -- OR --
 
 // List out all the routes we'll need
-router.use( require('./scribes') );
-router.use( require('./stories') );
-router.use( require('./scribbles') );
+router.use( '/api', require('./scribes') );
+router.use( '/api', require('./stories') );
+router.use( '/api', require('./scribbles') );
 
-router.get('/', function(req, res) {
-  res.send('Home page')
-})
+//router.get('/', function(req, res) {
+//  console.log("Directory Name: " + __dirname);
+//  res.sendfile('/public/index.html'); 
+//})
 
 router.get('/about', function(req, res) {
   res.send('Learn about us')
