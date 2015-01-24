@@ -3,6 +3,7 @@
 Adlib for stories
 
 ## Folder Structure
+```
 server.js
 app
 ----- config
@@ -20,3 +21,4 @@ public
 ----- app.js
 ----- appRoutes.js
 ----- index.html
+```
