@@ -1,46 +1,36 @@
-<!doctype html>
-<html lang="en">
+<html ng-app="scribblit">
 
 <head>
-  <meta charset="UTF-8">
-  <base href="/">
-
+  
+  <base href="/" />
   <title>Starter Node and Angular</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.css">
+<!--  <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">-->
+  <link rel="stylesheet" href="assets/css/style.css">
   <!-- custom styles -->
 
   <!-- JS -->
-  <script src="libs/angular/angular.min.js"></script>
-  <script src="libs/angular-route/angular-route.min.js"></script>
+  <script src="angular/angular.min.js"></script>
+  <script src="angular-route/angular-route.min.js"></script>
 
   <!-- ANGULAR CUSTOM -->
+<!--
   <script src="controllers/MainCtrl.js"></script>
-  <script src="controllers/NerdCtrl.js"></script>
-  <script src="services/NerdService.js"></script>
-  <script src="controllers/GeekCtrl.js"></script>
   <script src="services/GeekService.js"></script>
   <script src="appRoutes.js"></script>
-  <script src="app.js"></script>
+-->
+  <script src="controllers/StoryCtrl.js"></script>
+  <script src="/app.js"></script>
 </head>
 
-<body ng-app="sampleApp" ng-controller="NerdController">
+<body ng-controller="StoryController">
   <div class="container">
 
     <!-- HEADER -->
-    <nav class="navbar navbar-inverse">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="/">Stencil: Node and Angular</a>
-      </div>
-      <ul class="nav navbar-nav">
-        <li><a href="/nerds">Nerds {{tagline}}</a>
-        </li>
-        <li><a href="/geeks">Geeks</a>
-        </li>
-      </ul>
-    </nav>
+    <div class="storyline">
+      {{tagline}}
+    </div>
 
     <!-- ANGULAR DYNAMIC CONTENT -->
     <div ng-view></div>
