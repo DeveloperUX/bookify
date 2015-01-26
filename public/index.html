@@ -1,4 +1,4 @@
-<html ng-app="scribblit">
+<html ng-app="Scribblit">
 
 <head>
   
@@ -11,8 +11,8 @@
   <!-- custom styles -->
 
   <!-- JS -->
-  <script src="angular/angular.min.js"></script>
-  <script src="angular-route/angular-route.min.js"></script>
+  <script src="angular/angular.js"></script>
+  <script src="angular-route/angular-route.js"></script>
 
   <!-- ANGULAR CUSTOM -->
 <!--
@@ -20,17 +20,23 @@
   <script src="services/GeekService.js"></script>
   <script src="appRoutes.js"></script>
 -->
+  <script src="app.js"></script>
+  <script src="controllers/StoryboardCtrl.js"></script>
   <script src="controllers/StoryCtrl.js"></script>
-  <script src="/app.js"></script>
+  <script src="services/StoryService.js"></script>
+  <script src="services/StoryboardService.js"></script>
 </head>
 
-<body ng-controller="StoryController">
+<body ng-controller="StoryController as storyCtrl">
   <div class="container">
 
-    <!-- HEADER -->
     <div class="storyline">
-      {{tagline}}
+      <p ng-repeat="scribble in storyCtrl.scribbles">
+        {{scribble}}
+      </p>
     </div>
+    <input type="text" ng-model="storyCtrl.userscribble"></input>
+    <button type="submit"></button>    
 
     <!-- ANGULAR DYNAMIC CONTENT -->
     <div ng-view></div>
