@@ -30,8 +30,26 @@ router.post('/scribbles', function(req, res) {
       linkedScribe.save();
     });
   });
-
-
+  
 });
+
+
+/**
+ * Find a specific Scribble
+ */
+router.get('/scribbles/:id', function (req, res) {
+  // use mongoose to get all stories in the database
+  Scribble.findById(req.params.id, function(err, scribble) {
+    // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+    if(err)
+      res.send(err);
+    console.log("Retrieved a Scribble from the database");
+    res.json(scribble); // return all stories in JSON format
+  });
+});
+
+
+
+
 
 module.exports = router;

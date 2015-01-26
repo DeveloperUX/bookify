@@ -13,11 +13,24 @@ router.get('/stories', function (req, res) {
     // if there is an error retrieving, send the error. nothing after res.send(err) will execute
     if (err)
       res.send(err);
-    console.log("Retrieved a Story from the database");
+    console.log("Retrieved all stories from the database");
     res.json(stories); // return all stories in JSON format
   });
 });
 
+/**
+ * Find a specific story
+ */
+router.get('/stories/:id', function (req, res) {
+  // use mongoose to get all stories in the database
+  Story.findById(req.params.id, function(err, story) {
+    // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+    if(err)
+      res.send(err);
+    console.log("Retrieved a Story from the database");
+    res.json(story); // return all stories in JSON format
+  });
+});
 
 // create story and send back all stories after creation
 router.post('/stories', function (req, res) {
@@ -44,9 +57,9 @@ router.post('/stories', function (req, res) {
 
 
 // delete a story
-router.delete('/stories/:story_id', function (req, res) {
+router.delete('/stories/:id', function (req, res) {
   Story.remove({
-    _id: req.params.story_id
+    _id: req.params.id
   }, function (err, story) {
     if (err)
       res.send(err);
