@@ -23,7 +23,10 @@ router.get('/stories', function (req, res) {
  */
 router.get('/stories/:id', function (req, res) {
   // use mongoose to get all stories in the database
-  Story.findById(req.params.id, function(err, story) {
+  Story
+  .findById(req.params.id)
+  .populate('scribbles')  // turn the scribble IDs into actual Objects
+  .exec(function(err, story) {
     // if there is an error retrieving, send the error. nothing after res.send(err) will execute
     if(err)
       res.send(err);

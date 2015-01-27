@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 var StorySchema = mongoose.Schema({
-  scribbles : [{type: mongoose.Schema.ObjectId, ref: 'ScribbleSchema'}],
+  scribbles : [{type: mongoose.Schema.ObjectId, ref: 'Scribble'}],
   title     : String,
   genre     : String
 });

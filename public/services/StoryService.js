@@ -10,20 +10,8 @@ angular.module('Scribblit')
           .get('/api/stories/' + id)
           .success(function (response) {
             vm.storyInfo = response;
-            loadScribbles( response );
           });
       };
-      
-      function loadScribbles( scribbleList ) {
-        var scribbles = [];
-        for( id in scribbleList ) {
-          $http
-            .get('/api/scribbles/' + id)
-            .success( function(response) {
-              scribbles.push( response );
-            });
-        }
-      }
 
       StoryService.getStories = function () {
         return $http

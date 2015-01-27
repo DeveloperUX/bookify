@@ -14,7 +14,6 @@
   <!-- JS -->
   <script src="angular/angular.js"></script>
   <script src="angular-route/angular-route.js"></script>
-  <script src="assets/js/flat-ui.min.js"></script>
 
   <!-- ANGULAR CUSTOM -->
 <!--
@@ -26,16 +25,20 @@
   <script src="controllers/StoryboardCtrl.js"></script>
   <script src="controllers/StoryCtrl.js"></script>
   <script src="services/StoryService.js"></script>
+  <script src="directives/storyline.js"></script>
 </head>
 
 <body ng-controller="StoryController as storyCtrl">
   <div class="container">
 
+<!--
     <div class="storyline">
       <p ng-repeat="scribble in storyCtrl.scribbles">
         {{scribble}}
       </p>
     </div>
+-->
+   <storyline></storyline>
     <input type="text" ng-model="storyCtrl.userscribble" class="form-control"></input>
     <button type="submit" class="btn btn-default btn-primary">Add</button>    
 

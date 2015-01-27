@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 var ScribeSchema = mongoose.Schema({
   name      : String,
   balance   : Number,
-  scribbles : [{type: mongoose.Schema.ObjectId, ref: 'ScribbleSchema'}]
+  scribbles : [{type: mongoose.Schema.ObjectId, ref: 'Scribble'}]
 });
 
 
