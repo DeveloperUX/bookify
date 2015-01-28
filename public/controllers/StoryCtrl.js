@@ -9,4 +9,4 @@ angular.module('Scribblit')
         vm.scribbles = res.data.scribbles;
       });
 
-});
+  });
