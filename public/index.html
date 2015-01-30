@@ -6,9 +6,16 @@
   <title>Scribblit</title>
 
   <!-- CSS -->
-<!--  <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">-->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <!-- Optional theme -->
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.2/flatly/bootstrap.min.css">
+  <!-- Latest compiled and minified JavaScript -->
+<!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/flat-ui.min.css">
+<!--  <link rel="stylesheet" href="assets/css/flat-ui.min.css">-->
+
   <!-- custom styles -->
 
   <!-- JS -->
@@ -25,26 +32,28 @@
   <script src="controllers/StoryboardCtrl.js"></script>
   <script src="controllers/StoryCtrl.js"></script>
   <script src="services/StoryService.js"></script>
+  <script src="services/ScribbleService.js"></script>
   <script src="directives/storyline.js"></script>
 </head>
 
 <body ng-controller="StoryController as story">
   <div class="container">
-
-<!--
-    <div class="storyline">
-      <p ng-repeat="scribble in storyCtrl.scribbles">
-        {{scribble}}
-      </p>
+   
+    <form class="col-md-8" ng-submit="post()"> 
+      <div class="form-group">
+        <storyline scribbles="story.scribbles"></storyline>
+      </div>
+      <div class="form-group">
+        <textarea ng-model="story.userPost" 
+          placeholder="Add a new line to this story" rows="3" class="form-control"></textarea> 
+      </div>
+      <button type="submit" class="btn btn-default btn-primary pull-right">Scribble</button>   
+      <!-- ANGULAR DYNAMIC CONTENT -->
+      <div ng-view></div>
+    </form>
+    <div class="authors col-md-4">
+      
     </div>
--->
-    <storyline scribbles="story.scribbles"></storyline>
-    <input type="text" ng-model="story.userscribble" class="form-control"></input>
-    <button type="submit" class="btn btn-default btn-primary">Add</button>    
-
-    <!-- ANGULAR DYNAMIC CONTENT -->
-    <div ng-view></div>
-
   </div>
 </body>
 
