@@ -2,34 +2,63 @@ var Scribe = require('../models/Scribe');
 var Scribble = require('../models/Scribble');
 var Story = require('../models/Story');
 
+
+
 var express = require('express');
 var router = express.Router();
 
+// TODO Only for testing
+router.get('/scribbles', function (req, res) {
+  // use mongoose to get all scribes in the database
+  Scribble.find(function (err, scribbles) {
+    // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+    if (err)
+      res.send(err);
+    res.json(scribbles); // return all scribes in JSON format
+  });
+});
 
 // create story and send back all stories after creation
 router.post('/scribbles', function(req, res) {
 
-  // create a new scribble and tie it to a story and author
-  Scribble.create({
-    text : req.body.text,
-    scribe : req.body.scribe_id,
-    story : req.body.story_id
-  }, function (err, scribble) {
-    if(err)
-      res.send(err);
-    res.send(scribble);
-
-    // Find the associated Story to which this scribble is being added and modify it
-    Story.findOne( {_id: scribble.story}, function(err, linkedStory) {
-      linkedStory.scribbles.push( scribble );
-      linkedStory.save();
-    });
-    // Add this also to the author of the scribble
-    Scribe.findOne( {_id: scribble.scribe}, function(err, linkedScribe) {
-      linkedScribe.scribbles.push( scribble );
-      linkedScribe.save();
-    });
+//  // Get the author and Story
+//  var story = Story.findById( req.body.story_id );
+//  var author = Scribe.findById( req.body.scribe_id );
+  
+  var scrib = new Scribble({text: req.body.text});
+  // Find the associated Story to which this scribble is being added and modify it
+  Story.findById( req.body.story_id.trim(), function(err, linkedStory) {
+    linkedStory.scribbles.push( scrib );
+    linkedStory.save();
   });
+  // Add this also to the author of the scribble
+  Scribe.findById( req.body.scribe_id.trim(), function(err, linkedScribe) {
+    linkedScribe.scribbles.push( scrib );
+    linkedScribe.save();
+  });
+  
+  scrib.save();
+  
+  res.json(scrib); // return all stories in JSON format
+//  // create a new scribble and tie it to a story and author
+//  Scribble.create({
+//    text : req.body.text
+//  }, function (err, scribble) {
+//    if(err)
+//      res.send(err);
+//    res.send(scribble);
+//
+//    // Find the associated Story to which this scribble is being added and modify it
+//    Story.findOne( {_id: story.id}, function(err, linkedStory) {
+//      linkedStory.scribbles.push( scribble );
+//      linkedStory.save();
+//    });
+//    // Add this also to the author of the scribble
+//    Scribe.findOne( {_id: scribble.scribe}, function(err, linkedScribe) {
+//      linkedScribe.scribbles.push( scribble );
+//      linkedScribe.save();
+//    });
+//  });
   
 });
 
