@@ -35,7 +35,7 @@
 <body ng-controller="StoryController as story">
   <div class="container">
    
-    <form class="col-md-8" ng-submit="post()"> 
+    <form class="col-md-9" ng-submit="post()"> 
       <h2>{{story.title}}</h2>
       <div class="form-group">
         <storyline scribbles="story.scribbles"></storyline>
@@ -48,7 +48,7 @@
       <!-- ANGULAR DYNAMIC CONTENT -->
       <div ng-view></div>
     </form>
-    <div class="authors col-md-4">
+    <div class="authors col-md-3">
       <h2>Authors</h2>
       <author-list story="{{story._id}}"></author-list>
     </div>
