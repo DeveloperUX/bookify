@@ -40,25 +40,6 @@ router.post('/scribbles', function(req, res) {
   scrib.save();
   
   res.json(scrib); // return all stories in JSON format
-//  // create a new scribble and tie it to a story and author
-//  Scribble.create({
-//    text : req.body.text
-//  }, function (err, scribble) {
-//    if(err)
-//      res.send(err);
-//    res.send(scribble);
-//
-//    // Find the associated Story to which this scribble is being added and modify it
-//    Story.findOne( {_id: story.id}, function(err, linkedStory) {
-//      linkedStory.scribbles.push( scribble );
-//      linkedStory.save();
-//    });
-//    // Add this also to the author of the scribble
-//    Scribe.findOne( {_id: scribble.scribe}, function(err, linkedScribe) {
-//      linkedScribe.scribbles.push( scribble );
-//      linkedScribe.save();
-//    });
-//  });
   
 });
 

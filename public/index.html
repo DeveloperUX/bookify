@@ -23,17 +23,13 @@
   <script src="angular-route/angular-route.js"></script>
 
   <!-- ANGULAR CUSTOM -->
-<!--
-  <script src="controllers/MainCtrl.js"></script>
-  <script src="services/GeekService.js"></script>
-  <script src="appRoutes.js"></script>
--->
   <script src="app.js"></script>
-  <script src="controllers/StoryboardCtrl.js"></script>
   <script src="controllers/StoryCtrl.js"></script>
+  <script src="services/ScribeService.js"></script>
   <script src="services/StoryService.js"></script>
   <script src="services/ScribbleService.js"></script>
   <script src="directives/storyline.js"></script>
+  <script src="directives/author-list.js"></script>
 </head>
 
 <body ng-controller="StoryController as story">
@@ -53,7 +49,8 @@
       <div ng-view></div>
     </form>
     <div class="authors col-md-4">
-      
+      <h2>Authors</h2>
+      <author-list story="{{story._id}}"></author-list>
     </div>
   </div>
 </body>

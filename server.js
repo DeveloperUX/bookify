@@ -8,7 +8,7 @@ var morgan   = require('morgan');
 var database = require('./app/config/db');
 
 // configuration ===========================================
-var port = process.env.PORT || 8080; // set our port
+var port = process.env.PORT || 3000; // set our port
 // get all data/stuff of the body (POST) parameters
 app.use(morgan('dev')); // log every request to the console
 app.use(bodyParser.json()); // parse application/json 
